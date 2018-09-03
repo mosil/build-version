@@ -1,0 +1,42 @@
+apply plugin: 'com.android.application'
+
+android {
+    signingConfigs {
+        build_version {
+            keyAlias 'build_version'
+            keyPassword '1234567890'
+            storeFile file('../../build_version.keystore')
+            storePassword '1234567890'
+        }
+    }
+    compileSdkVersion 28
+    defaultConfig {
+        applicationId "studio.mosil.buildversionphase"
+        minSdkVersion 21
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        develop {
+            applicationIdSuffix ".develop"
+            debuggable true
+            versionNameSuffix '-develop'
+            signingConfig signingConfigs.build_version
+        }
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support:appcompat-v7:28.0.0-rc02'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+}
